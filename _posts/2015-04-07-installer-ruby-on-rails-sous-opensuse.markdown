@@ -154,13 +154,43 @@ $ sudo zypper install apache2
 
 {% highlight bash %}
 $ gem install passenger
+{% endhighlight %}
+
+### Compiler et installer le module passenger
+
+{% highlight bash %}
+$ passenger-install-apache2
+{% endhighlight %}
+Ne sélectionner que Ruby dans la liste proposée.
+Le script nous fait remarquer qu'il manque des dépendances pour lancer la compilation. Faisons donc CTRL+C quand on nous y invite pour interrompre le processus.
+
+Installez les paquets suivants:
+{% highlight bash %}
+$ sudo zypper install libcurl-devel apache2-devel
+{% endhighlight %}
+
+et relançez:
+{% highlight bash %}
 $ passenger-install-apache2
 {% endhighlight %}
 
-### Installer le module passenger
+à la fin de la compilationsn le script nous indique de copier un morceau de code qui correspond au chargement du module passenger par Apache:
+{% highlight bash %}
+LoadModule passenger_module /home/patrice/.rvm/gems/ruby-2.2.1/gems/passenger-5.0.6/buildout/apache2/mod_passenger.so
+<IfModule mod_passenger.c>
+  PassengerRoot /home/patrice/.rvm/gems/ruby-2.2.1/gems/passenger-5.0.6
+  PassengerDefaultRuby /home/patrice/.rvm/gems/ruby-2.2.1/wrappers/ruby
+</IfModule>
+{% endhighlight %}
 
+Créeez le fichier suivant et collez-y le bloc ci dessus.
 {% highlight bash %}
 $ sudo vim /etc/apache2/conf.d/passenger.conf
+{% endhighlight %}
+
+### Paramétrer Apache
+
+{% highlight bash %}
 $ sudo vim /etc/apache2/vhosts.d/monappli.conf
 $ sudo vim /etc/hosts
 {% endhighlight %}
@@ -176,25 +206,3 @@ $ rake db:setup
 $ rake db:migrate
 $ sudo service apache2 restart
 {% endhighlight %}
-
-
-
-You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run `jekyll serve`, which launches a web server and auto-regenerates your site when a file is updated.
-
-To add new posts, simply add a file in the `_posts` directory that follows the convention `YYYY-MM-DD-name-of-post.ext` and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.
-
-Jekyll also offers powerful support for code snippets:
-
-{% highlight ruby %}
-def print_hi(name)
-  puts "Hi, #{name}"
-end
-print_hi('Tom')
-#=> prints 'Hi, Tom' to STDOUT.
-{% endhighlight %}
-
-Check out the [Jekyll docs][jekyll] for more info on how to get the most out of Jekyll. File all bugs/feature requests at [Jekyll’s GitHub repo][jekyll-gh]. If you have questions, you can ask them on [Jekyll’s dedicated Help repository][jekyll-help].
-
-[jekyll]:      http://jekyllrb.com
-[jekyll-gh]:   https://github.com/jekyll/jekyll
-[jekyll-help]: https://github.com/jekyll/jekyll-help
