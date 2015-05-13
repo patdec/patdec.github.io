@@ -8,7 +8,7 @@ categories: jekyll update
 L'objectif est d'installer un environnement complet de développement en utilisant les serveurs Apache et Postgres. 
 Webrick le serveur web "maison" intégré dans Ruby on Rails demeure excellent pour un site monodomaine. Mais dès lors que notre application devient ambitieuse et qu'elle nécessite l'utilisation de plusieurs domaines, nous devons nous tourner vers un serveur web mieux outillé.
 Apache est parfait dans ce rôle.
-Nous choisissons aussi Postgres plutôt que SQLite pour la simple raison d'utiliser un serveur SGBDR. Pourquoi Postgres que MariaDB ? Parceque traditionnellement RoR préfère Postgresql et que celui-ci est plus complexe à paramétrer que MySQL.
+
 
 
 Installer Ruby
@@ -21,8 +21,7 @@ Ruby peut être installé de multiples façons. Par le système de la distributi
 
 Avant toute chose, il vous faut récupérer la clé publique de l'auteur. Elle nous permettra de réupérer le script d'installation sur son site.
 {% highlight bash %}
-$ gpg --keyserver hkp://keys.gnupg.net --recv-keys 
-409B6B1796C275462A1703113804BB82D39DC0E3
+$ gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
 {% endhighlight %}
 
 Nous sommes prêts à lancer la commande d'installation de RVM:
@@ -124,16 +123,16 @@ host    all             all             127.0.0.1/32            ident
 # IPv6 local connections:
 host    all             all             ::1/128                 ident
 {% endhighlight %}
-Modifier la 1ère ligne non commentée de la façon suivante:
+Modifier les 3 ligne non commentées de la façon suivante:
 {% highlight bash %}
 # TYPE  DATABASE        USER            ADDRESS                 METHOD
 
 # "local" is for Unix domain socket connections only
 local   all             all                                  	md5
 # IPv4 local connections:
-host    all             all             127.0.0.1/32            ident
+host    all             all             127.0.0.1/32            md5
 # IPv6 local connections:
-host    all             all             ::1/128                 ident
+host    all             all             ::1/128                 md5
 {% endhighlight %}
 
 Redémarrer le service postgres
