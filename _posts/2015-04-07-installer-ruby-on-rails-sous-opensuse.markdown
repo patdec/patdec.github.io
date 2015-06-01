@@ -2,7 +2,7 @@
 layout: post
 title:  "Installer Ruby on Rails sous OpenSUSE 13.2!"
 date:   2015-04-07 20:54:28
-categories: jekyll update
+categories: [serveur, postgresql, ruby on rails]
 ---
 
 L'objectif est d'installer un environnement complet de développement en utilisant les serveurs Apache et Postgres. 

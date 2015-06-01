@@ -2,17 +2,17 @@
 layout: post
 title:  "Installer MySQL sous OpenSUSE 13.2!"
 date:   2015-05-12 20:54:28
-categories: jekyll update
+categories: [mysql, mariadb ,serveur]
 ---
 
-Depuis que MySQL est tombé dans l'escarcelle d'Oracle, les distributions le remplacent peu à peu par un fork: MariaDB
+Depuis que MySQL est tombé dans l'escarcelle d'Oracle, les distributions le remplacent peu à peu par un fork de plus en plus populaire: MariaDB. Nous allons détailler son installtion. 
 
 Installer MariaDB
 -----------------
 
 Lançons la commandes suivante:
 {% highlight bash %}
-$ zypper install mariadb
+$ sudo zypper install mariadb
 {% endhighlight %}
 
 Paramétrer MariaDB
@@ -26,7 +26,7 @@ $ sudo mysql_secure_installation
 {% endhighlight %}
 
 Il déroule un certain nombre de questions. A chaque ligne il suffit de sélectionner l'entrée par défaut en presant "Entrée".
-A la ligne "New password", saisissez le mot de passe _root_ que vous souhaitez donner à votre base.
+A la ligne "New password", saisissez le mot de passe _root_ que vous souhaitez donner à votre utilisateur _root_ de MariaDB.
 
 
 {% highlight bash %}
