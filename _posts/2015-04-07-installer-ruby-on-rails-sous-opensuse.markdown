@@ -1,71 +1,115 @@
 ---
 layout: post
-title:  "Installer Ruby on Rails sous OpenSUSE 13.2!"
+title:  "Installer Ruby on Rails sous OpenSUSE 13.2"
 date:   2015-04-07 20:54:28
 categories: [serveur, postgresql, ruby on rails]
 ---
 
-L'objectif est d'installer un environnement complet de développement en utilisant les serveurs Apache et Postgres. 
-Webrick le serveur web "maison" intégré dans Ruby on Rails demeure excellent pour un site monodomaine. Mais dès lors que notre application devient ambitieuse et qu'elle nécessite l'utilisation de plusieurs domaines, nous devons nous tourner vers un serveur web mieux outillé.
+L'objectif est d'installer un environnement complet de développement en 
+utilisant les serveurs Apache et PostgreSQL. 
+Webrick le serveur web "maison" intégré dans Ruby on Rails demeure excellent 
+pour un site monodomaine. Mais dès lors que notre application devient ambitieuse 
+et qu'elle nécessite l'utilisation de plusieurs domaines, nous devons nous 
+tourner vers un serveur web mieux outillé.
 Apache est parfait dans ce rôle.
 
 
 
-Installer Ruby
---------------
+Installer le langage Ruby et Ruby on Rails
+------------------------------------------
 
-Ruby peut être installé de multiples façons. Par le système de la distribution ou bien par un gestionnaire de version. Ici nous utiliserons RVM.
+Ruby peut être installé de plusieurs façons. Par le gestionnaire de package de la distribution 
+ou par un gestionnaire de version indépendant. Nous privilégions la 2 ème option pour les raisons suivantes:
+
+*  possibilité d'installer la version de Ruby voulue.
+*  possibilité d'utiliser RubyGems et donc la commande "gem" pour installer un programme ou une bibliothèque spécifique.
+
+Dans ce tutoriel, nous utiliserons RVM comme gestionnaire de versions de Ruby.
 
 ### Installer RVM
 
+[Le site de RVM ](http://rvm.io/)
 
-Avant toute chose, il vous faut récupérer la clé publique de l'auteur. Elle nous permettra de réupérer le script d'installation sur son site.
+
+Avant tout, il nous faut installer la clé publique GPG du mainteneur de RVM, Michal Papis. Elle nous 
+permettra de vérifier la signature du script d'installation téléchargé depuis son site.
 {% highlight bash %}
-$ gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+$ gpg --keyserver hkp://keys.gnupg.net --recv-keys 
+409B6B1796C275462A1703113804BB82D39DC0E3
 {% endhighlight %}
+
+![GPG Installation](/assets/rvm1.png)
 
 Nous sommes prêts à lancer la commande d'installation de RVM:
 {% highlight bash %}
 $ \curl -sSL https://get.rvm.io | bash -s stable
 {% endhighlight %}
 
-Exécutons la commande suivante afin d'avoir la commande "rvm" disponible immédiatement:
+![RVM Installation](/assets/rvm2.png)
+
+Exécutons la commande suivante afin d'avoir la commande "rvm" disponible 
+immédiatement:
 {% highlight bash %}
 $ source ~/.profile
 {% endhighlight %}
 
 ### Installer Ruby
 
-La commande suivante nous permet  de lister les versions de ruby disponibles:
+[Le site de Ruby ](https://www.ruby-lang.org)
+
+La commande suivante nous permet  de lister les versions de Ruby disponibles:
 {% highlight bash %}
 $ rvm list known
 {% endhighlight %}
 
-Nous choisissons d'installer la version 2.2.1
+Nous installons la version 2.2.1
 {% highlight bash %}
 $ rvm install 2.2.1
 {% endhighlight %}
-Le mot de passe administrateur peut vous être demandé pour l'installation de packages nécessaires à la compilation de ruby:
+Le mot de passe administrateur peut vous être demandé pour l'installation de 
+packages nécessaires à la compilation de ruby:
 
 > root password required for 'zypper --gpg-auto-import-keys refresh':
 
-Entrez-le et laisser les opérations suivre leurs cours.
+Fournissez-le et laisser les opérations suivre leurs cours.
 
-Mettons par défaut cette version:
+![Ruby Installation](/assets/rvm5.png)
+
+Indiquons la version de Ruby que nous allons utiliser:
 {% highlight bash %}
 $ rvm --default use 2.2.1
 {% endhighlight %}
 
-### Installer Rails
+L'option "--default" précise que la version de Ruby est mémorisée et sera utilisée à chaque connexion.  
+
+Ruby est installé. Vous pouvez le vérifier avec la commande suivante:
+
+{% highlight bash %}
+$ ruby -v
+{% endhighlight %}
+
+![Ruby version check](/assets/rvm10.png)
+
+### Installer Ruby on Rails
+
+[Le site de Ruby on Rails ](http://rubyonrails.org/)
+
+Maintenant que le langage Ruby est disponible sur notre machine, nous allons utiliser RubyGems, le gestionnaire de paquet de Ruby pour installer Ruby on Rails.
 
 {% highlight bash %}
 $ gem install rails
 {% endhighlight %}
 
-Installer Postgresql
---------------------
+c'est tout.
+
+Installer la base de données PostgreSQL
+---------------------------------------
+
+[Le site de PostreSQL ](http://www.postgresql.org/)
 
 ### Installer le paquet postgresql
+
+Nous installerons le package de la distribution. Dans un terminal, nous procédons comme suit:
 
 {% highlight bash %}
 $ sudo zypper install postgresql-server
@@ -78,20 +122,25 @@ sudo systemctl start postgresql.service
 
 ### Paramétrage
 
-Afin d'utiliser le service, il faut au préalable exécuter quelques opérations.
-Pour cela, il faut se connecter en tant qu'utilisateur _postgres_ tout en étant loggé sous l'utilisateur _root_.
+Afin d'exploiter Postgres, il faut au préalable exécuter quelques opérations.
+Connectons nous en tant qu'utilisateur _postgres_. Pour cela il faut avoir les droits _root_.
 {% highlight bash %}
 $ su
 # su - postgres
 {% endhighlight %}
 
-Vous êtes à présent dans le shell de l'utilisateur _postgres_. Vous allez vous connecter au serveur postgresql à l'aide la commande client suivante:
+Nous sommes à présent dans le shell de l'utilisateur _postgres_. Nous allons nous 
+connecter au service postgresql à l'aide la commande client suivante:
 {% highlight bash %}
 $ psql
 {% endhighlight %}
 
-Cela vous permettra de créer un utilisateur ou rôle _postgres_ identique à celui utilisé pour votre session Linux. Si votre identifiant de connexion Linux est "lambda" alors votre devez prendre comme identifiant de connexion postres "lambda". Dans mon exemple, mon indetifiant est "patrice".
-Exécuter les lignes suivantes. A la place de 'password', indiquez votre propre mot de passe. Veillez à bien conserver les simples quotes.
+Nous allons créer un utilisateur ou rôle _postgres_ identique à celui 
+utilisé pour notre session Linux. Si votre identifiant de connexion Linux est 
+"lambda" alors votre devez prendre comme identifiant de connexion postres 
+"lambda". Dans mon exemple, mon indentifiant est "patrice".
+Exécuter les lignes suivantes. A la place de 'password', indiquez votre propre 
+mot de passe. Veillez à bien conserver les simples quotes.
 {% highlight sql %}
 # CREATE USER patrice ENCRYPTED PASSWORD 'password' CREATEDB;
 # CREATE DATABASE patrice;
@@ -103,16 +152,17 @@ Enfin, pour sortir du client postgres:
 \quit
 {% endhighlight %}
 
-Quittez la session _postgres_, pour nous retrouver dans la session _root_
+Quittons la session _postgres_, pour nous retrouver dans la session _root_:
 {% highlight bash %}
 $ exit
 {% endhighlight %}
 
-Il nous reste à éditer le fichier suivant:
+Editons le fichier suivant:
 {% highlight bash %}
 # vim /var/lib/pgsql/data/pg_hba.conf
 {% endhighlight %}
-Vers la fin du fichier, vous devez avoir les lignes suivantes:
+
+Vers la fin, nous avons les lignes suivantes:
 {% highlight bash %}
 # TYPE  DATABASE        USER            ADDRESS                 METHOD
 
@@ -123,7 +173,8 @@ host    all             all             127.0.0.1/32            ident
 # IPv6 local connections:
 host    all             all             ::1/128                 ident
 {% endhighlight %}
-Modifier les 3 ligne non commentées de la façon suivante:
+
+Modifions les 3 ligne non commentées de la façon suivante:
 {% highlight bash %}
 # TYPE  DATABASE        USER            ADDRESS                 METHOD
 
@@ -135,15 +186,21 @@ host    all             all             127.0.0.1/32            md5
 host    all             all             ::1/128                 md5
 {% endhighlight %}
 
-Redémarrer le service postgres
+Redémarrons le service postgres
 {% highlight bash %}
 # systemctl restart postgresql.service
 {% endhighlight %}
 
-Installer Apache
-================
+Installer le serveur web Apache et le module Phusion Passenger
+--------------------------------------------------------------
+
+Passenger sera installé comme module d'Apache pour assurer la communication avec Rack, l'interface HTTP de Ruby on Rails. 
 
 ### Installer le paquet Apache
+
+[Le site d'Apache ](http://www.postgresql.org/)
+
+Nous l'installons via le package de la distribution.
 
 {% highlight bash %}
 $ sudo zypper install apache2
@@ -151,57 +208,59 @@ $ sudo zypper install apache2
 
 ### Installer la gem passenger
 
+[Le site de Phusion Passenger ](https://www.phusionpassenger.com/)
+
 {% highlight bash %}
 $ gem install passenger
 {% endhighlight %}
 
 ### Compiler et installer le module passenger
 
+Lançons le script de compilation:
+
 {% highlight bash %}
 $ passenger-install-apache2
 {% endhighlight %}
-Ne sélectionner que Ruby dans la liste proposée.
-Le script nous fait remarquer qu'il manque des dépendances pour lancer la compilation. Faisons donc CTRL+C quand on nous y invite pour interrompre le processus.
 
-Installez les paquets suivants:
+Nous cochons Ruby dans la liste proposée et validons.
+Le script nous fait alors remarquer qu'il manque des dépendances pour lancer la 
+compilation. Faisons donc CTRL+C, comme on nous y invite, pour interrompre le 
+processus.
+
+![Passenger Installation](/assets/passenger1.png)
+
+Installons donc les paquets pour satisfaire les dépendances:
 {% highlight bash %}
 $ sudo zypper install libcurl-devel apache2-devel
 {% endhighlight %}
 
-et relançez:
+et relançons:
 {% highlight bash %}
 $ passenger-install-apache2
 {% endhighlight %}
 
-à la fin de la compilationsn le script nous indique de copier un morceau de code qui correspond au chargement du module passenger par Apache:
+à la fin de la compilation, le script nous invite à copier quelques lignes d'instructions qui sont requises 
+pour charger le module passenger dans Apache:
 {% highlight bash %}
-LoadModule passenger_module /home/patrice/.rvm/gems/ruby-2.2.1/gems/passenger-5.0.6/buildout/apache2/mod_passenger.so
+LoadModule passenger_module 
+/home/patrice/.rvm/gems/ruby-2.2.1/gems/passenger-5.0.16/buildout/apache2/
+mod_passenger.so
 <IfModule mod_passenger.c>
-  PassengerRoot /home/patrice/.rvm/gems/ruby-2.2.1/gems/passenger-5.0.6
+  PassengerRoot /home/patrice/.rvm/gems/ruby-2.2.1/gems/passenger-5.0.16
   PassengerDefaultRuby /home/patrice/.rvm/gems/ruby-2.2.1/wrappers/ruby
 </IfModule>
 {% endhighlight %}
 
-Créeez le fichier suivant et collez-y le bloc ci dessus.
+Créons donc le fichier suivant et collons-y le bloc ci dessus.
 {% highlight bash %}
 $ sudo vim /etc/apache2/conf.d/passenger.conf
 {% endhighlight %}
 
-### Paramétrer Apache
+![Passenger Paramétrage](/assets/passenger2.png)
 
-{% highlight bash %}
-$ sudo vim /etc/apache2/vhosts.d/monappli.conf
-$ sudo vim /etc/hosts
-{% endhighlight %}
 
-### Créer une application rails
+Conclusion
+----------
 
-{% highlight bash %}
-$ rails new monappli
-$ cd monappli
-$ vim config/databases.yml
-$ bundle
-$ rake db:setup
-$ rake db:migrate
-$ sudo service apache2 restart
-{% endhighlight %}
+Après toutes ces étapes, nous sommes désormais prêt à accueillir une première application Rails.
+Sa création et les ajustements de configuration seront vus dans un autre tutoriel. 
