@@ -1,21 +1,24 @@
---
+---
 layout: post
-title:  "Créer un application Rails fonctionnelle"
+title:  "Créer une application Rails fonctionnelle"
 date:   2015-09-03 01:17:28
 categories: [serveur, postgresql, ruby on rails]
 ---
 
-Nous avons vu comment créer un environnement de dévellopement pour Ruby on Rails.
-Nous allons donc voir maintenant comment créer et paramétrer cet environnement pour rendre opérante une application Rails.
+Nous avons vu précedemment comment mettre en place un environnement de développement pour Ruby on 
+Rails et créer les conditions de son exécution. Nous allons nous lancer dans notre première application Rails 
+
 
 
 ### Créer une application rails
 
-Nous avons désormais un environnement de développement Ruby on Rails pleinement opérationnel.
-Nous pouvons donc créer une application.
+Ouvrons un terminal et entrons la commandes suivante.
 
 {% highlight bash %}
 $ rails new monappli
+{% endhighlight %}
+
+{% highlight bash %}
 $ cd monappli
 $ vim config/databases.yml
 $ bundle
@@ -26,7 +29,8 @@ $ sudo service apache2 restart
 
 ### Paramétrer Apache
 
-Notre serveur Rails est pleinement opérationnel. Il nous reste à créer un hôte virtuel pour notre future application
+Notre serveur Rails est pleinement opérationnel. Il nous reste à créer un hôte 
+virtuel pour notre future application
 
 {% highlight bash %}
 $ sudo vim /etc/apache2/vhosts.d/monappli.conf

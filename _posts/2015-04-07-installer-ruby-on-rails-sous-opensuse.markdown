@@ -8,7 +8,8 @@ categories: [serveur, postgresql, ruby on rails]
 L'objectif est d'installer un environnement complet de développement en 
 utilisant les serveurs Apache et PostgreSQL. 
 Webrick le serveur web "maison" intégré dans Ruby on Rails demeure excellent 
-pour un site monodomaine. Mais dès lors que notre application devient ambitieuse 
+pour un site monodomaine. Mais dès lors que notre application devient 
+ambitieuse 
 et qu'elle nécessite l'utilisation de plusieurs domaines, nous devons nous 
 tourner vers un serveur web mieux outillé.
 Apache est parfait dans ce rôle.
@@ -18,11 +19,14 @@ Apache est parfait dans ce rôle.
 Installer le langage Ruby et Ruby on Rails
 ------------------------------------------
 
-Ruby peut être installé de plusieurs façons. Par le gestionnaire de package de la distribution 
-ou par un gestionnaire de version indépendant. Nous privilégions la 2 ème option pour les raisons suivantes:
+Ruby peut être installé de plusieurs façons. Par le gestionnaire de package de 
+la distribution 
+ou par un gestionnaire de version indépendant. Nous privilégions la 2 ème option 
+pour les raisons suivantes:
 
 *  possibilité d'installer la version de Ruby voulue.
-*  possibilité d'utiliser RubyGems et donc la commande "gem" pour installer un programme ou une bibliothèque spécifique.
+*  possibilité d'utiliser RubyGems et donc la commande "gem" pour installer un 
+programme ou une bibliothèque spécifique.
 
 Dans ce tutoriel, nous utiliserons RVM comme gestionnaire de versions de Ruby.
 
@@ -31,12 +35,17 @@ Dans ce tutoriel, nous utiliserons RVM comme gestionnaire de versions de Ruby.
 [Le site de RVM ](http://rvm.io/)
 
 
-Avant tout, il nous faut installer la clé publique GPG du mainteneur de RVM, Michal Papis. Elle nous 
-permettra de vérifier la signature du script d'installation téléchargé depuis son site.
+Avant tout, il nous faut installer la clé publique GPG du mainteneur de RVM, 
+Michal Papis. Elle nous 
+permettra de vérifier la signature du script d'installation téléchargé depuis 
+son site.
 {% highlight bash %}
 $ gpg --keyserver hkp://keys.gnupg.net --recv-keys 
 409B6B1796C275462A1703113804BB82D39DC0E3
 {% endhighlight %}
+
+A comparer avec le fichier 
+[https://rvm.io/mpapis.asc](https://rvm.io/mpapis.asc)
 
 ![GPG Installation](/assets/rvm1.png)
 
@@ -48,7 +57,7 @@ $ \curl -sSL https://get.rvm.io | bash -s stable
 ![RVM Installation](/assets/rvm2.png)
 
 Exécutons la commande suivante afin d'avoir la commande "rvm" disponible 
-immédiatement:
+immédiatement sans avoir à ouvrir une nouvelle session bash:
 {% highlight bash %}
 $ source ~/.profile
 {% endhighlight %}
@@ -66,12 +75,14 @@ Nous installons la version 2.2.1
 {% highlight bash %}
 $ rvm install 2.2.1
 {% endhighlight %}
+
 Le mot de passe administrateur peut vous être demandé pour l'installation de 
 packages nécessaires à la compilation de ruby:
 
 > root password required for 'zypper --gpg-auto-import-keys refresh':
 
-Fournissez-le et laisser les opérations suivre leurs cours.
+Fournissez-le et laisser les opérations suivre leurs cours. La compilation de 
+Ruby peut durer quelques longues minutes.
 
 ![Ruby Installation](/assets/rvm5.png)
 
@@ -80,7 +91,16 @@ Indiquons la version de Ruby que nous allons utiliser:
 $ rvm --default use 2.2.1
 {% endhighlight %}
 
-L'option "--default" précise que la version de Ruby est mémorisée et sera utilisée à chaque connexion.  
+L'option "--default" précise que la version de Ruby est mémorisée et sera 
+utilisée à chaque connexion.
+
+La commande précédente provoque un message d'erreur:
+![RVM Erreur](/assets/rvm11.png)
+
+Nous devons modifier le paramétrage de notre terminal. Pour Konsole de KDE, il 
+suffit de rajouter l'option --login après la commande d'appel du bash comme suit:
+
+![RVM Konsole](/assets/rvm6.png)
 
 Ruby est installé. Vous pouvez le vérifier avec la commande suivante:
 
@@ -94,7 +114,9 @@ $ ruby -v
 
 [Le site de Ruby on Rails ](http://rubyonrails.org/)
 
-Maintenant que le langage Ruby est disponible sur notre machine, nous allons utiliser RubyGems, le gestionnaire de paquet de Ruby pour installer Ruby on Rails.
+Maintenant que le langage Ruby est disponible sur notre machine, nous allons 
+utiliser RubyGems, le gestionnaire de paquet de Ruby pour installer Ruby on 
+Rails.
 
 {% highlight bash %}
 $ gem install rails
@@ -109,7 +131,8 @@ Installer la base de données PostgreSQL
 
 ### Installer le paquet postgresql
 
-Nous installerons le package de la distribution. Dans un terminal, nous procédons comme suit:
+Nous installerons le package de la distribution. Dans un terminal, nous 
+procédons comme suit:
 
 {% highlight bash %}
 $ sudo zypper install postgresql-server
@@ -123,13 +146,15 @@ sudo systemctl start postgresql.service
 ### Paramétrage
 
 Afin d'exploiter Postgres, il faut au préalable exécuter quelques opérations.
-Connectons nous en tant qu'utilisateur _postgres_. Pour cela il faut avoir les droits _root_.
+Connectons nous en tant qu'utilisateur _postgres_. Pour cela il faut avoir les 
+droits _root_.
 {% highlight bash %}
 $ su
 # su - postgres
 {% endhighlight %}
 
-Nous sommes à présent dans le shell de l'utilisateur _postgres_. Nous allons nous 
+Nous sommes à présent dans le shell de l'utilisateur _postgres_. Nous allons 
+nous 
 connecter au service postgresql à l'aide la commande client suivante:
 {% highlight bash %}
 $ psql
@@ -194,7 +219,8 @@ Redémarrons le service postgres
 Installer le serveur web Apache et le module Phusion Passenger
 --------------------------------------------------------------
 
-Passenger sera installé comme module d'Apache pour assurer la communication avec Rack, l'interface HTTP de Ruby on Rails. 
+Passenger sera installé comme module d'Apache pour assurer la communication avec 
+Rack, l'interface HTTP de Ruby on Rails. 
 
 ### Installer le paquet Apache
 
@@ -239,7 +265,8 @@ et relançons:
 $ passenger-install-apache2
 {% endhighlight %}
 
-à la fin de la compilation, le script nous invite à copier quelques lignes d'instructions qui sont requises 
+à la fin de la compilation, le script nous invite à copier quelques lignes 
+d'instructions qui sont requises 
 pour charger le module passenger dans Apache:
 {% highlight bash %}
 LoadModule passenger_module 
@@ -262,5 +289,7 @@ $ sudo vim /etc/apache2/conf.d/passenger.conf
 Conclusion
 ----------
 
-Après toutes ces étapes, nous sommes désormais prêt à accueillir une première application Rails.
-Sa création et les ajustements de configuration seront vus dans un autre tutoriel. 
+Après toutes ces étapes, nous sommes désormais prêt à accueillir une première 
+application Rails.
+Sa création et les ajustements de configuration seront vus dans un autre 
+tutoriel. 
