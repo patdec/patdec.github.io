@@ -102,7 +102,7 @@ suffit de rajouter l'option --login après la commande d'appel du bash comme sui
 
 ![RVM Konsole](/assets/rvm6.png)
 
-Ruby est installé. Vous pouvez le vérifier avec la commande suivante:
+Ruby est installé. Vous pouvez vous en rendre compte avec la commande suivante:
 
 {% highlight bash %}
 $ ruby -v
@@ -167,9 +167,9 @@ utilisé pour notre session Linux. Si votre identifiant de connexion Linux est
 Exécuter les lignes suivantes. A la place de 'password', indiquez votre propre 
 mot de passe. Veillez à bien conserver les simples quotes.
 {% highlight sql %}
-# CREATE USER patrice ENCRYPTED PASSWORD 'password' CREATEDB;
-# CREATE DATABASE patrice;
-# GRANT ALL PRIVILEGES ON DATABASE patrice TO patrice;
+postgres=# CREATE USER patrice ENCRYPTED PASSWORD 'password' CREATEDB;
+postgres=# CREATE DATABASE patrice;
+postgres=# GRANT ALL PRIVILEGES ON DATABASE patrice TO patrice;
 {% endhighlight %}
 
 Enfin, pour sortir du client postgres:
@@ -249,11 +249,14 @@ $ passenger-install-apache2
 {% endhighlight %}
 
 Nous cochons Ruby dans la liste proposée et validons.
+
+![Passenger Installation](/assets/passenger1.png)
+
 Le script nous fait alors remarquer qu'il manque des dépendances pour lancer la 
 compilation. Faisons donc CTRL+C, comme on nous y invite, pour interrompre le 
 processus.
 
-![Passenger Installation](/assets/passenger1.png)
+![Passenger Erreur](/assets/passenger4.png)
 
 Installons donc les paquets pour satisfaire les dépendances:
 {% highlight bash %}
@@ -284,6 +287,13 @@ $ sudo vim /etc/apache2/conf.d/passenger.conf
 {% endhighlight %}
 
 ![Passenger Paramétrage](/assets/passenger2.png)
+
+Pour tenir compte du fihcier dee configuration de passenger, il noous faut relancer Apache.
+
+
+{% highlight bash %}
+$ sudo systemctl restart apache2
+{% endhighlight %}
 
 
 Conclusion
