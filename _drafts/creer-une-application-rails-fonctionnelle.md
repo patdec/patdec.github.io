@@ -29,7 +29,7 @@ quelques paramétrages systèmes. 2 choses surtout:
 avec un nom de domaine plus sympathique.
 
 
-### Paramétrer Apache
+### Ajustements avec Apache
 
 Créons un fichier de configuration Apache dans le dossier /etc/apache2/vhosts.d.
 Appelons le du nom de notre application: _monappli.conf_
@@ -82,6 +82,23 @@ Et maintenant, ouvrons un navigateur, et entrons notre nom de domaine:
 ![Navigateur: erreur](/assets/browser2.png)
 
 Nous avons une erreur 500.
+Si nous consultons les logs d'Apache, nous constatons qu'il manque une bibliothèque: "Javascript runtime".
+
+![Apache: erreur](/assets/rails2.png)
+
+Pour corriger ce problème, installons NodeJS
+
+{% highlight bash %}
+$ sudo zypper install nodejs
+{% endhighlight %}
+
+Et rafraîchissons la fenêtre de notre navigateur. Nous devons à présent voir cette page:
+
+![Apache: erreur](/assets/rails3.png)
+
+C'est signe que notre application fonctionne correctement. Il nous reste maintenant à voir comment interagir avec Postgresql.
+
+### Dialoguer avec PostgreSQL
 
 
 {% highlight bash %}

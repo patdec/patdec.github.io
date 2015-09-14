@@ -278,17 +278,21 @@ mod_passenger.so
 <IfModule mod_passenger.c>
   PassengerRoot /home/patrice/.rvm/gems/ruby-2.2.1/gems/passenger-5.0.16
   PassengerDefaultRuby /home/patrice/.rvm/gems/ruby-2.2.1/wrappers/ruby
+  RailsEnv development
 </IfModule>
 {% endhighlight %}
 
 Créons donc le fichier suivant et collons-y le bloc ci dessus.
+Notons qu'une ligne a été rajoutée: _RailsEnv development_
+Elle spécifie l'environnement dans lequel l'application Rails sera exécutée.
+
 {% highlight bash %}
 $ sudo vim /etc/apache2/conf.d/passenger.conf
 {% endhighlight %}
 
 ![Passenger Paramétrage](/assets/passenger2.png)
 
-Pour tenir compte du fihcier dee configuration de passenger, il noous faut relancer Apache.
+Pour tenir compte du fichier dee configuration de passenger, il nous faut relancer Apache.
 
 
 {% highlight bash %}
