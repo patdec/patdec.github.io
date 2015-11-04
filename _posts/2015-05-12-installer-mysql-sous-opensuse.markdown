@@ -5,7 +5,7 @@ date:   2015-05-12 20:54:28
 categories: [mysql, mariadb ,serveur]
 ---
 
-Depuis que MySQL est tombé dans l'escarcelle d'Oracle, les distributions le remplacent peu à peu par un fork de plus en plus populaire: MariaDB. Nous allons détailler son installtion. 
+Depuis que MySQL est tombé dans l'escarcelle d'Oracle, les distributions le remplacent peu à peu par un fork de plus en plus prisé: MariaDB. Nous allons passer en revue quelques points de son installation. 
 
 Installer MariaDB
 -----------------
@@ -18,15 +18,16 @@ $ sudo zypper install mariadb
 Paramétrer MariaDB
 ------------------
 
-Maintenant que le serveur MariaDB est installé, il reste quelques opérations avant qu'il soit prêt à être utilisé. 
-Cela se fait par un script bien commode:
+Le serveur MariaDB installé, quelques opérations doivent être réalisées avant son utilisation. 
+Exécutons le script suivant:
 
 {% highlight bash %}
 $ sudo mysql_secure_installation
 {% endhighlight %}
 
-Il déroule un certain nombre de questions. A chaque ligne il suffit de sélectionner l'entrée par défaut en presant "Entrée".
-A la ligne "New password", saisissez le mot de passe _root_ que vous souhaitez donner à votre utilisateur _root_ de MariaDB.
+Ce script propose d'initialiser un environnement Mysql sécurisé. Quelques questions vont être posées.  
+A la ligne "New password", saisissons le mot de passe que nous souhaitons donner à notre utilisateur _root_ Mysql. Aux 
+autres, nous conservons le choix par défaut.
 
 
 {% highlight bash %}
@@ -41,10 +42,10 @@ Remove test database and access to it? [Y/n]
 Reload privilege tables now? [Y/n] 
 {% endhighlight %}
 
-Vous pouvez désormais utiliser MariaDB.
+MariaDB est prêt à l'emploi.
 
 
-Si vous utilisez PhpMyAdmin
+Détour par PhpMyAdmin
 ---------------------------
 
 Par défaut, le temps de session est limité à 1440 secondes soit 24 minutes.
