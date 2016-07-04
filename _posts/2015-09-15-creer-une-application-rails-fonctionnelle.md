@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Créer une application Rails fonctionnelle"
+title:  "Exécuter sa première application Rails"
 date:   2015-09-03 01:17:28
 categories: [serveur, postgresql, ruby on rails]
 ---

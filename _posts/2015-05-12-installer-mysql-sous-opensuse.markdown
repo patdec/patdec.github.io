@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Installer MySQL sous OpenSUSE 13.2!"
+title:  "Installer MySQL sous OpenSUSE"
 date:   2015-05-12 20:54:28
 categories: [mysql, mariadb ,serveur]
 ---
