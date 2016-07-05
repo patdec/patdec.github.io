@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Installer RSPEC dans un engine"
-date: 2016-07-02 23:00:00
+date: 2016-07-05 23:00:00
 categories:	 [ruby on rails]
 ---
 

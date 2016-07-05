@@ -29,7 +29,7 @@ Si nous voulons installer Rails pour une autre version de Ruby, il nous faut sp�
 rvm use 1.9.3
 {% endhighlight %}
 
-Il faudra donc bien veiller à lancer cette commande si nous utilisons plusieurs versions de Ruby simultanément.  
+Il faudra donc bien veiller à lancer cette commande si nous utilisons plusieurs versions de Ruby simultanément.
 
 Gemset
 ------
