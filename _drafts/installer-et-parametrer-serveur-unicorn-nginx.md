@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Installer Unicorn sous OpenSUSE 13.2!"
+title:  "Installer Unicorn sous OpenSUSE 13.2"
 date:   2015-06-01 11:03:00
 categories: [unicorn,nginx,ruby on rails ,serveur]
 ---

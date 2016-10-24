@@ -12,7 +12,9 @@ Remplacer toutes les variables spécifiques
 
 L'identifant et le mot de passe de la base de données locale qui sert au développement sont souvent des données propres à chaque développeur.Il s'avère donc nécessaire de les variabiliser.
 
+Prenons les données suivantes comme example:
 
+_my_app/config/database.yml_
 {% highlight yaml %}
 default: &default
   host: 'localhost'
@@ -23,7 +25,7 @@ default: &default
   pool: 5
 {% endhighlight %}
 
-devient naturellement:
+Je modifie les lignes correspondantes à host,username et password:
 
 {% highlight yaml %}
 default: &default
@@ -36,16 +38,14 @@ default: &default
 {% endhighlight %}
  
  
+ 
+ 
 Ajouter les variables dans le .profile
 --------------------------------------
 
-Editons le fichier /home/patrice/.profile 
-{% highlight bash %}
-vim ~/.profile
-{% endhighlight %}
+ajoutons y ces lignes:
 
-et ajoutons y ces lignes:
-
+_/home/patrice/.profile_
 {% highlight bash %}
 export DATABASE_HOST=localhost
 export DATABASE_USERNAME=patrice
