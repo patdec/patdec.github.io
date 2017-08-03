@@ -1,16 +1,61 @@
-# Site settings
 title: Patdec Tech
-email: blog@patriceandre.com
 description: > # this means to ignore newlines until "baseurl:"
   Opensuse & Ruby on Rails.<br />
   Blog de Patrice André - Développeur Ruby on Rails
-baseurl: "" # the subpath of your site, e.g. /blog/
-url: "http://patec.github.io" # the base hostname & protocol for your site
-twitter_username: PatriceAndr1
-github_username:  patdec
+author: Patrice ANDRE
+github: https://github.com/patdec
+about: I am freelance developer. Currently doing more in backend, focused in Python and Django.
+disqus_shortname: patdec
+google_analytics: UA-XXXXXXXX-Y
+avatar_url: /static/img/avatar.jpg
 
-# Build settings
+enableTags: true
+tagarray: []
+
+collections:
+  project:
+    output: true
+    permalink: /project/:path/
+
+social:
+    - icon: fa-facebook
+      link: "#"
+    - icon: fa-twitter
+      link: "https://twitter.com/PatriceAndr1"
+    - icon: fa-linkedin
+      link: "#"
+    - icon: fa-stack-exchange
+      link: "#"
+    - icon: fa-github
+      link: "https://github.com/patdec"
+
+share:
+  twitter_username: PatriceAndr1
+#  fb_appid: 1749788565247320
+
+urls:
+    - text: About Me
+      url: /about/
+    - text: My Projects
+      url: /projects/
+    - text: XML Feed
+      url: /feed.xml
+
+url: "https://patdec.github.io"
+baseurl: ""
+paginate: 20
+per_page: 20
+paginate_path: "/page/:num/"
 markdown: kramdown
+gems:
+  - jekyll-paginate
+  - jekyll-gist
+
+compress_html:
+  clippings: all
+  comments: ["<!-- ", " -->"]
+  endings: all
+
 
 kramdown:
   input: GFM
